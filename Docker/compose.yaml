@@ -1,0 +1,6 @@
+﻿services:
+  wellness-tracker:
+    image: wellness-tracker
+    build:
+      context: .
+      dockerfile: Dockerfile

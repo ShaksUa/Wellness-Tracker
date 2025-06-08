@@ -1,0 +1,4 @@
+docker build -t wellness-tracker -f Docker/Dockerfile .
+
+docker run -p 5217:80 wellness-tracker
+or docker-compose up

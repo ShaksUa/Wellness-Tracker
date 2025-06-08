@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Wellness_Tracker.Models.Entities;
 
 namespace Wellness_Tracker.Controllers;
 

@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Wellness_Tracker.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -13,7 +15,7 @@ try
     Log.Logger = new LoggerConfiguration()
         .ReadFrom.Configuration(builder.Configuration)
         .WriteTo.Console()
-        .WriteTo.File("Logs/app_.txt", rollingInterval: RollingInterval.Day)
+        .WriteTo.File("Utilities/Logs/app_.txt", rollingInterval: RollingInterval.Day)
         .CreateLogger();
     builder.Host.UseSerilog();
 }
@@ -55,6 +57,10 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(80); // Listen to port 80 inside the container
 });
 
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+{
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 

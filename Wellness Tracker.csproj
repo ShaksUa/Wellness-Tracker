@@ -10,6 +10,16 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="10.0.0-preview.3.25171.5" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
@@ -18,16 +28,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
       <Folder Include="Middleware\" />
-      <Folder Include="Model\DTO\" />
-      <Folder Include="Model\ViewModel\" />
+      <Folder Include="Models\ViewModels\" />
       <Folder Include="Services\Implementations\" />
       <Folder Include="Services\Interfaces\" />
       <Folder Include="Utilities\Constants\" />
       <Folder Include="Utilities\Extensions\" />
       <Folder Include="Utilities\Helpers\" />
-      <Folder Include="Utilities\Logging\" />
     </ItemGroup>
 
 </Project>

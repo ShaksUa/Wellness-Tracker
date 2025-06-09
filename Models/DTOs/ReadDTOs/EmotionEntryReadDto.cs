@@ -1,4 +1,4 @@
-namespace Wellness_Tracker.Models.DTOs;
+namespace Wellness_Tracker.Models.DTOs.ReadDTOs;
 
 public class EmotionEntryReadDto
     {

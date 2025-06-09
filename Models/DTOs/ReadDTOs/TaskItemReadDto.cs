@@ -1,5 +1,4 @@
-namespace Wellness_Tracker.Models.DTOs;
-
+namespace Wellness_Tracker.Models.DTOs.ReadDTOs;
 public class TaskItemReadDto
 {
     public int ID { get; set; }

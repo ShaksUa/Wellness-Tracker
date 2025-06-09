@@ -15,4 +15,5 @@ public class ApplicationDBContext :DbContext
     public DbSet<MealEntry> Meals { get; set; }
     public DbSet<EmotionEntry> EmotionEntries { get; set; }
     public DbSet<HealthCheck> HealthChecks { get; set; }
+    public DbSet<Note> Notes { get; set; }
 }

@@ -17,7 +17,7 @@ public class EmotionEntriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<EmotionEntry>> CreateEmotionEntry(EmotionEntryCreateDto entry)
+    public async Task<ActionResult<EmotionEntry>> Create(EmotionEntryCreateDto entry)
     {
         var newEntry = new EmotionEntry
         {
@@ -33,7 +33,7 @@ public class EmotionEntriesController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<IEnumerable<EmotionEntryReadDto>> GetAllEmotionEntries()
+    public ActionResult<IEnumerable<EmotionEntryReadDto>> GetAll()
     {
         try
         {

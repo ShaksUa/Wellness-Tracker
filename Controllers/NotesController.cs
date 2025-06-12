@@ -11,16 +11,16 @@ namespace Wellness_Tracker.Controller;
 [ApiController]
 [Route("[controller]")]
 
-public class NoteController : ControllerBase
+public class NotesController : ControllerBase
 {
     private readonly ApplicationDBContext _context;
-    public NoteController(ApplicationDBContext context)
+    public NotesController(ApplicationDBContext context)
     {
         _context = context;
     }
 
     [HttpPost]
-    public async Task<ActionResult<Note>> CreateNote(NoteCreateDto note)
+    public async Task<ActionResult<Note>> Create(NoteCreateDto note)
     {
         var newNote = new Note
         {
@@ -33,7 +33,7 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<NoteReadDto>>> GetAllNotes()
+    public async Task<ActionResult<IEnumerable<NoteReadDto>>> GetAll()
     {
         try
         {

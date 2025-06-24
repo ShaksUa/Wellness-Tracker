@@ -22,10 +22,8 @@ public class MealEntriesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<MealEntry>> Create(MealEntryCreateDto mealEntry)
     {
-        if (mealEntry == null)
-        {
-            return BadRequest("Meal entry data is required");
-        }
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
 
         var newMeal = new MealEntry
         {
@@ -75,6 +73,17 @@ public class MealEntriesController : ControllerBase
         if (!mealEntry.Any())
         {
             return NotFound("No meal entries found");
+        }
+        return Ok(mealEntry);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<MealEntry>> GetById(int id)
+    {
+        var mealEntry = await _context.Meals.FindAsync(id);
+        if (mealEntry == null)
+        {
+            return NotFound();
         }
         return Ok(mealEntry);
     }

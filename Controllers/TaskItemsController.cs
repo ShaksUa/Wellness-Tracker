@@ -20,6 +20,9 @@ public class TaskItemsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TaskItem>> Create (TaskItemCreateDto taskItem)
     {
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         var newTask = new TaskItem
         {
             Task = taskItem.Task,
@@ -56,5 +59,15 @@ public class TaskItemsController : ControllerBase
         return Ok(taskItems);
     }
     
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TaskItem>> GetById(int id)
+    {
+        var taskItem = await _context.TaskItems.FindAsync(id);
+        if (taskItem == null)
+        {
+            return NotFound();
+        }
+        return Ok(taskItem);
+    }
 }
 

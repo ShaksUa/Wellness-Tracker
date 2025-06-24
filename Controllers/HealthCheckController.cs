@@ -31,5 +31,6 @@ public class HealthCheckController(ILogger<HealthCheckController> logger) : Cont
         "Ok" => "System is healthy",
         "Nok" => "System needs attention",
         _ => "Status unknown"
-    }; 
+    };
+    
 }

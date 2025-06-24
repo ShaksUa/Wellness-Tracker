@@ -19,11 +19,16 @@ public class UsersController: ControllerBase
     [HttpPost]
     public async Task<ActionResult<User>> Create(UserCreateDto user)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         var newUser = new User
         {
             LastName = user.LastName,
             FirstName = user.FirstName,
-            RegistrationDateTime = user.RegistrationDateTime
+            RegistrationDateTime = user.RegistrationDateTime,
+            Email = user.Email,
+            Age = user.Age,
         };
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync();
@@ -39,7 +44,9 @@ public class UsersController: ControllerBase
                 ID = e.ID,
                 LastName = e.LastName,
                 FirstName = e.FirstName,
-                RegistrationDateTime = e.RegistrationDateTime
+                RegistrationDateTime = e.RegistrationDateTime,
+                Email = e.Email,
+                Age = e.Age,
             })
             .ToListAsync();
         
@@ -48,5 +55,16 @@ public class UsersController: ControllerBase
             return NotFound("No users found");
         }
         return Ok(users);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User>> GetById(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return Ok(user);
     }
 }

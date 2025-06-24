@@ -19,6 +19,9 @@ public class EmotionEntriesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<EmotionEntry>> Create(EmotionEntryCreateDto entry)
     {
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         var newEntry = new EmotionEntry
         {
             GeneralMood = entry.GeneralMood,
@@ -37,22 +40,22 @@ public class EmotionEntriesController : ControllerBase
     {
         try
         {
-        var entries = _context.EmotionEntries
-            .Select(e => new EmotionEntryReadDto
+            var entries = _context.EmotionEntries
+                .Select(e => new EmotionEntryReadDto
+                {
+                    ID = e.ID,
+                    GeneralMood = e.GeneralMood,
+                    GeneralMoodDateTime = e.GeneralMoodDateTime,
+                    Comments = e.Comments
+                }).ToList();
+        
+        
+            if (!entries.Any())
             {
-                ID = e.ID,
-                GeneralMood = e.GeneralMood,
-                GeneralMoodDateTime = e.GeneralMoodDateTime,
-                Comments = e.Comments
-            }).ToList();
+                return NotFound("No entries found");
+            }
         
-        
-        if (!entries.Any())
-        {
-            return NotFound("No entries found");
-        }
-        
-        return Ok(entries);
+            return Ok(entries);
         }
         catch (Exception ex)
         {
@@ -60,5 +63,16 @@ public class EmotionEntriesController : ControllerBase
             return StatusCode(500, "Error retrieving entries");
         }
         
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<EmotionEntry>> GetById(int id)
+    {
+        var entry = await _context.EmotionEntries.FindAsync(id);
+        if (entry == null)
+        {
+            return NotFound();
+        }
+        return Ok(entry);
     }
 }

@@ -22,6 +22,9 @@ public class NotesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Note>> Create(NoteCreateDto note)
     {
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         var newNote = new Note
         {
             Title = note.Title,
@@ -58,6 +61,17 @@ public class NotesController : ControllerBase
             Log.Logger.Error(ex, "Error retrieving notes");
             return StatusCode(500, "Error retrieving notes");
         }
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Note>> GetById(int id)
+    {
+        var note = await _context.Notes.FindAsync(id);
+        if (note == null)
+        {
+            return NotFound();
+        }
+        return Ok(note);
     }
     
 }

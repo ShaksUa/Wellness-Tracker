@@ -13,5 +13,5 @@ public class MealEntryReadDto
     public DateTime SupperDateTime { get; set; }
     public string? OtherMealEntry { get; set; }
     public DateTime OtherMealEntryDateTime { get; set; }
-    public string? WaterEntry { get; set; }
+    public int WaterEntry { get; set; }
 }

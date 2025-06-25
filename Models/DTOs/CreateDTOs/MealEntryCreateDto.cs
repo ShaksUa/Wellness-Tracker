@@ -20,5 +20,5 @@ public class MealEntryCreateDto
     [Display(Name = "Date and Time of Other Meal Entry"),DataType(DataType.DateTime)]
     public DateTime OtherMealEntryDateTime { get; set; }
     [Range(1,100, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-    public string? WaterEntry { get; set; }
+    public int WaterEntry { get; set; }
 }

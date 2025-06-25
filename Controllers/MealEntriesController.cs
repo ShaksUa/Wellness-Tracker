@@ -80,6 +80,9 @@ public class MealEntriesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<MealEntry>> GetById(int id)
     {
+        if (id < 1)
+            return BadRequest("Invalid entry ID");
+        
         var mealEntry = await _context.Meals.FindAsync(id);
         if (mealEntry == null)
         {

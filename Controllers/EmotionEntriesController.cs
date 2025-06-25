@@ -5,6 +5,7 @@ using Wellness_Tracker.Models.DTOs.ReadDTOs;
 using Wellness_Tracker.Models.DTOs.CreateDTOs;
 using Wellness_Tracker.Models.Entities;
 
+namespace Wellness_Tracker.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class EmotionEntriesController : ControllerBase
@@ -67,7 +68,10 @@ public class EmotionEntriesController : ControllerBase
 
     [HttpGet("{id}")]
     public async Task<ActionResult<EmotionEntry>> GetById(int id)
-    {
+    {   
+        if (id < 1)
+            return BadRequest("Invalid entry ID");
+        
         var entry = await _context.EmotionEntries.FindAsync(id);
         if (entry == null)
         {

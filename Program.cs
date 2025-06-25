@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -8,8 +10,6 @@ const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Configure logging
 builder.Logging.ClearProviders();
-//builder.Logging.AddConsole(); 
-//builder.Logging.AddEventLog();  //Windows Event Log 
 try
 {
     Log.Logger = new LoggerConfiguration()
@@ -61,6 +61,11 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+//### Fluent Validation Configuration
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 

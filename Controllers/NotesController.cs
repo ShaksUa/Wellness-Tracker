@@ -6,7 +6,7 @@ using Wellness_Tracker.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace Wellness_Tracker.Controller;
+namespace Wellness_Tracker.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -66,6 +66,9 @@ public class NotesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Note>> GetById(int id)
     {
+        if (id < 1)
+            return BadRequest("Invalid entry ID");
+        
         var note = await _context.Notes.FindAsync(id);
         if (note == null)
         {

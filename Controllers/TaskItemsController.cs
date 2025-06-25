@@ -4,6 +4,7 @@ using Wellness_Tracker.Data;
 using Wellness_Tracker.Models.DTOs.CreateDTOs;
 using Wellness_Tracker.Models.DTOs.ReadDTOs;
 using Wellness_Tracker.Models.Entities;
+namespace Wellness_Tracker.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -62,6 +63,9 @@ public class TaskItemsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TaskItem>> GetById(int id)
     {
+        if (id < 1)
+            return BadRequest("Invalid entry ID");
+        
         var taskItem = await _context.TaskItems.FindAsync(id);
         if (taskItem == null)
         {

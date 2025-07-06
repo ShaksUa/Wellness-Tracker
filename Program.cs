@@ -4,6 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Wellness_Tracker.Data;
+using Wellness_Tracker.Services.Implementations;
+using Wellness_Tracker.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -24,6 +30,7 @@ catch (Exception ex)
     Console.WriteLine($"Error configuring logging: {ex.Message}");
     throw;
 }
+builder.Services.AddLogging();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -46,9 +53,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
-                .AllowAnyHeader()
-                .WithMethods("GET","POST","PUT","DELETE","OPTIONS");
+            policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? Array.Empty<string>())
+                  .AllowAnyHeader()
+                  .WithMethods("GET", "POST", "PUT", "DELETE")
+                  .SetIsOriginAllowedToAllowWildcardSubdomains();
         });
 });
 
@@ -66,7 +74,32 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
+// Add JWT Authentication
+var jwtKey = builder.Configuration["Jwt:Key"] ?? 
+             throw new InvalidOperationException("Jwt:Key is not configured");
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            RequireExpirationTime = true,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // ### Development Environment Configuration
@@ -84,6 +117,7 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseCors(myAllowSpecificOrigins);
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

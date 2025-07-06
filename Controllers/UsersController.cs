@@ -15,25 +15,6 @@ public class UsersController: ControllerBase
     {
         _context = context;
     }
-
-    [HttpPost]
-    public async Task<ActionResult<User>> Create(UserCreateDto user)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        var newUser = new User
-        {
-            LastName = user.LastName,
-            FirstName = user.FirstName,
-            RegistrationDateTime = user.RegistrationDateTime,
-            Email = user.Email,
-            Age = user.Age,
-        };
-        _context.Users.Add(newUser);
-        await _context.SaveChangesAsync();
-        return Ok(new {id = newUser.ID});
-    }
     
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll()

@@ -48,7 +48,7 @@ public class MealEntriesController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while creating the meal entry");
+            return StatusCode(500, "An error occurred while creating the meal entry" + ex.Message + ex.StackTrace);
         }
     }
 

@@ -9,7 +9,8 @@ using Wellness_Tracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Identity;
+using Wellness_Tracker.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -74,9 +75,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Add JWT Authentication
+//### Health Checks Configuration
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 var jwtKey = builder.Configuration["Jwt:Key"] ?? 
              throw new InvalidOperationException("Jwt:Key is not configured");
 
@@ -102,6 +104,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 var app = builder.Build();
 
+   // Consider adding this validation
+   var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 // ### Development Environment Configuration
 if (app.Environment.IsDevelopment())
 {
@@ -114,9 +120,10 @@ if (app.Environment.IsDevelopment())
 }
 
 //### Middleware Pipeline
+app.UseExceptionHandler("/Error"); 
+app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors(myAllowSpecificOrigins);
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

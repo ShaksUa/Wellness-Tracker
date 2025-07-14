@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Wellness_Tracker.Data;
-using Wellness_Tracker.Models.DTOs.ReadDTOs;
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Data;
+using WellnessTracker.Models.DTOs.ReadDTOs;
+using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.Entities;
 
-namespace Wellness_Tracker.Controllers;
+namespace WellnessTracker.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class EmotionEntriesController : ControllerBase

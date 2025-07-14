@@ -1,7 +1,7 @@
 using FluentValidation;
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.CreateDTOs;
 
-namespace Wellness_Tracker.Utilities.Validation;
+namespace WellnessTracker.Utilities.Validation;
 
 public class EmotionValidator : AbstractValidator<EmotionEntryCreateDto>
 {

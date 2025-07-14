@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Wellness_Tracker.Data;
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
-using Wellness_Tracker.Models.DTOs.ReadDTOs;
-using Wellness_Tracker.Models.Entities;
-namespace Wellness_Tracker.Controllers;
+using WellnessTracker.Data;
+using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.ReadDTOs;
+using WellnessTracker.Models.Entities;
+namespace WellnessTracker.Controllers;
 
 [ApiController]
 [Route("[controller]")]

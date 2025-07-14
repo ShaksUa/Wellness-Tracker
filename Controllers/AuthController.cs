@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
-using Wellness_Tracker.Models.DTOs.InputDTOs;
-using Wellness_Tracker.Services.Interfaces;
+using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.InputDTOs;
+using WellnessTracker.Services.Interfaces;
 
-namespace Wellness_Tracker.Controllers;
+namespace WellnessTracker.Controllers;
 
 [ApiController]
 [Route("[controller]")]

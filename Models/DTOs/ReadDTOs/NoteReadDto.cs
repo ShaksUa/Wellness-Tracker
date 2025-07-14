@@ -1,4 +1,4 @@
-namespace Wellness_Tracker.Models.DTOs.ReadDTOs;
+namespace WellnessTracker.Models.DTOs.ReadDTOs;
 
 public class NoteReadDto
 {

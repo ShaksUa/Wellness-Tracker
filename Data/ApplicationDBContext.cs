@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Models.Entities;
 
-namespace Wellness_Tracker.Data;
+namespace WellnessTracker.Data;
 
 public class ApplicationDBContext : DbContext
 {

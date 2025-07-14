@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Identity;
-using Wellness_Tracker.Data;
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
-using Wellness_Tracker.Models.DTOs.InputDTOs;
-using Wellness_Tracker.Services.Interfaces;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Data;
+using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.InputDTOs;
+using WellnessTracker.Services.Interfaces;
+using WellnessTracker.Models.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
-namespace Wellness_Tracker.Services.Implementations;
+namespace WellnessTracker.Services.Implementations;
 
 public class AuthService : IAuthService
 {

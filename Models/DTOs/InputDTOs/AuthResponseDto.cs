@@ -1,4 +1,4 @@
-namespace Wellness_Tracker.Models.DTOs.InputDTOs;
+namespace WellnessTracker.Models.DTOs.InputDTOs;
 
 public class AuthResponseDto
 {

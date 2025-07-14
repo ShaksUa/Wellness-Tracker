@@ -3,14 +3,14 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Wellness_Tracker.Data;
-using Wellness_Tracker.Services.Implementations;
-using Wellness_Tracker.Services.Interfaces;
+using WellnessTracker.Data;
+using WellnessTracker.Services.Implementations;
+using WellnessTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -42,9 +42,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Wellness Tracker API",
+        Title = "WellnessTracker API",
         Version = "v1",
-        Description = "API for the Wellness Tracker application."
+        Description = "API for the WellnessTracker application."
     });
 });
 
@@ -102,11 +102,10 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddAuthorization();
-var app = builder.Build();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-   // Consider adding this validation
-   var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var app = builder.Build();
 
 // ### Development Environment Configuration
 if (app.Environment.IsDevelopment())
@@ -114,7 +113,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Wellness Tracker API v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "WellnessTracker API v1");
         options.RoutePrefix = string.Empty;
     });
 }

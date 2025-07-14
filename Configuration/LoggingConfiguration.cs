@@ -1,4 +1,4 @@
-namespace Wellness_Tracker.Configuration;
+namespace WellnessTracker.Configuration;
 
 public class LoggingConfiguration
 {

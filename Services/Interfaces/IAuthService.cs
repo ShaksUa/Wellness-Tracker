@@ -1,8 +1,8 @@
-using Wellness_Tracker.Models.DTOs.CreateDTOs;
-using Wellness_Tracker.Models.DTOs.InputDTOs;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.InputDTOs;
+using WellnessTracker.Models.Entities;
 
-namespace Wellness_Tracker.Services.Interfaces;
+namespace WellnessTracker.Services.Interfaces;
 
 public interface IAuthService
 {

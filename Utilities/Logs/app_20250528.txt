@@ -2,7 +2,7 @@
 2025-05-28 23:22:15.658 +03:00 [INF] Now listening on: http://localhost:7193
 2025-05-28 23:22:15.661 +03:00 [INF] Application started. Press Ctrl+C to shut down.
 2025-05-28 23:22:15.662 +03:00 [INF] Hosting environment: Development
-2025-05-28 23:22:15.663 +03:00 [INF] Content root path: E:\Proga\C#\Wellness Tracker\Wellness Tracker
+2025-05-28 23:22:15.663 +03:00 [INF] Content root path: E:\Proga\C#\WellnessTracker\WellnessTracker
 2025-05-28 23:22:15.666 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/ - null null
 2025-05-28 23:22:15.723 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5173/ - 301 0 null 58.3204ms
 2025-05-28 23:22:15.738 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/index.html - null null
@@ -26,7 +26,7 @@
 2025-05-28 23:22:16.130 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
 2025-05-28 23:22:16.132 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5173/favicon-32x32.png - 200 628 image/png 3.8762ms
 2025-05-28 23:22:16.175 +03:00 [ERR] An unhandled exception has occurred while executing the request.
-Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - Wellness_Tracker.Controllers.HealthCheckController.GetHealthStatus (Wellness Tracker). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - WellnessTracker.Controllers.HealthCheckController.GetHealthStatus (WellnessTracker). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
    at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
    at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
    at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
@@ -42,7 +42,7 @@ Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP meth
 2025-05-28 23:26:52.608 +03:00 [INF] Now listening on: http://localhost:7193
 2025-05-28 23:26:52.611 +03:00 [INF] Application started. Press Ctrl+C to shut down.
 2025-05-28 23:26:52.611 +03:00 [INF] Hosting environment: Development
-2025-05-28 23:26:52.612 +03:00 [INF] Content root path: E:\Proga\C#\Wellness Tracker\Wellness Tracker
+2025-05-28 23:26:52.612 +03:00 [INF] Content root path: E:\Proga\C#\WellnessTracker\WellnessTracker
 2025-05-28 23:26:52.941 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/index.html - null null
 2025-05-28 23:26:53.022 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5173/index.html - 200 null text/html;charset=utf-8 82.2771ms
 2025-05-28 23:26:53.077 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/index.js - null null
@@ -50,15 +50,15 @@ Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP meth
 2025-05-28 23:26:53.999 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/swagger/v1/swagger.json - null null
 2025-05-28 23:26:54.103 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5173/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 103.8215ms
 2025-05-28 23:27:06.752 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5173/HealthCheck - null null
-2025-05-28 23:27:06.774 +03:00 [INF] Executing endpoint 'Wellness_Tracker.Controllers.HealthCheckController.Get (Wellness Tracker)'
-2025-05-28 23:27:06.790 +03:00 [INF] Route matched with {action = "Get", controller = "HealthCheck"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[Wellness_Tracker.HealthCheck] Get() on controller Wellness_Tracker.Controllers.HealthCheckController (Wellness Tracker).
-2025-05-28 23:27:06.801 +03:00 [INF] Executing action method Wellness_Tracker.Controllers.HealthCheckController.Get (Wellness Tracker) - Validation state: "Valid"
+2025-05-28 23:27:06.774 +03:00 [INF] Executing endpoint 'WellnessTracker.Controllers.HealthCheckController.Get (WellnessTracker)'
+2025-05-28 23:27:06.790 +03:00 [INF] Route matched with {action = "Get", controller = "HealthCheck"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[WellnessTracker.HealthCheck] Get() on controller WellnessTracker.Controllers.HealthCheckController (WellnessTracker).
+2025-05-28 23:27:06.801 +03:00 [INF] Executing action method WellnessTracker.Controllers.HealthCheckController.Get (WellnessTracker) - Validation state: "Valid"
 2025-05-28 23:27:06.803 +03:00 [INF] Getting health check status
 2025-05-28 23:27:06.805 +03:00 [INF] Retrieved Count: 3 from health check entries 
 2025-05-28 23:27:06.806 +03:00 [WRN] Health check entries found
-2025-05-28 23:27:06.810 +03:00 [INF] Executed action method Wellness_Tracker.Controllers.HealthCheckController.Get (Wellness Tracker), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3.9659ms.
-2025-05-28 23:27:06.818 +03:00 [INF] Executing ObjectResult, writing value of type 'Wellness_Tracker.HealthCheck[]'.
-2025-05-28 23:27:06.843 +03:00 [INF] Executed action Wellness_Tracker.Controllers.HealthCheckController.Get (Wellness Tracker) in 49.8733ms
-2025-05-28 23:27:06.844 +03:00 [INF] Executed endpoint 'Wellness_Tracker.Controllers.HealthCheckController.Get (Wellness Tracker)'
+2025-05-28 23:27:06.810 +03:00 [INF] Executed action method WellnessTracker.Controllers.HealthCheckController.Get (WellnessTracker), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3.9659ms.
+2025-05-28 23:27:06.818 +03:00 [INF] Executing ObjectResult, writing value of type 'WellnessTracker.HealthCheck[]'.
+2025-05-28 23:27:06.843 +03:00 [INF] Executed action WellnessTracker.Controllers.HealthCheckController.Get (WellnessTracker) in 49.8733ms
+2025-05-28 23:27:06.844 +03:00 [INF] Executed endpoint 'WellnessTracker.Controllers.HealthCheckController.Get (WellnessTracker)'
 2025-05-28 23:27:06.845 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5173/HealthCheck - 200 null application/json; charset=utf-8 93.1051ms
 2025-05-28 23:33:28.421 +03:00 [INF] Application is shutting down...

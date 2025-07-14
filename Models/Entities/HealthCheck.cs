@@ -1,4 +1,4 @@
-namespace Wellness_Tracker.Models.Entities;
+namespace WellnessTracker.Models.Entities;
 public class HealthCheck
 {
     public int ID { get; set; }

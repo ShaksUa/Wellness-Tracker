@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace Wellness_Tracker.Models.DTOs.CreateDTOs;
+namespace WellnessTracker.Models.DTOs.CreateDTOs;
 
 public class NoteCreateDto
 {

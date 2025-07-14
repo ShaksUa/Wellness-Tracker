@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Wellness_Tracker.Models.Entities;
+using WellnessTracker.Models.Entities;
 
-namespace Wellness_Tracker.Controllers;
+namespace WellnessTracker.Controllers;
 
 [ApiController]
 [Route("[controller]")]

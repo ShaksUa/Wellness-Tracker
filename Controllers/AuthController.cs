@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WellnessTracker.Models.DTOs.CreateDTOs;
 using WellnessTracker.Models.DTOs.InputDTOs;
 using WellnessTracker.Services.Interfaces;
 
 namespace WellnessTracker.Controllers;
-
+[Authorize] 
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase

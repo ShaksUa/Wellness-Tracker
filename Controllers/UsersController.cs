@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WellnessTracker.Data;
@@ -5,9 +6,10 @@ using WellnessTracker.Models.DTOs.CreateDTOs;
 using WellnessTracker.Models.DTOs.ReadDTOs;
 using WellnessTracker.Models.Entities;
 namespace WellnessTracker.Controllers;
+
+[Authorize] 
 [ApiController]
 [Route("[controller]")]
-
 public class UsersController: ControllerBase
 {
     private readonly ApplicationDBContext _context;

@@ -1,11 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using WellnessTracker.Data;
 using WellnessTracker.Models.DTOs.ReadDTOs;
 using WellnessTracker.Models.DTOs.CreateDTOs;
+using WellnessTracker.Models.DTOs.UpdateDTOs;
 using WellnessTracker.Models.Entities;
 
 namespace WellnessTracker.Controllers;
+
+[Authorize] 
 [ApiController]
 [Route("[controller]")]
 public class EmotionEntriesController : ControllerBase
@@ -75,8 +80,64 @@ public class EmotionEntriesController : ControllerBase
         var entry = await _context.EmotionEntries.FindAsync(id);
         if (entry == null)
         {
-            return NotFound();
+            return NotFound("The requested entry was not found.");
         }
         return Ok(entry);
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<EmotionEntry>> DeleteById(int id)
+    {
+        if (id < 1)
+        {
+            return BadRequest("Invalid entry ID");
+        } 
+        try
+        {
+            var emotionEntry = await _context.EmotionEntries.FirstAsync(e => e.ID == id);
+            _context.EmotionEntries.Remove(emotionEntry);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+        catch (InvalidOperationException)
+        {
+           return NotFound($"Emotion entry with ID {id} was not found.");
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error removing emotion entry with ID {EmotionEntryId}", id);
+            return StatusCode(500, "An error occurred while removing the emotion entry.");
+        }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<EmotionEntry>> UpdateById(int id, EmotionEntryUpdateDto updateDto)
+    {
+         if (id != updateDto.ID)
+         {
+             return BadRequest("Invalid entry ID");
+         }
+         try
+         {
+             var entry = await _context.EmotionEntries.FirstAsync(e => e.ID == id);
+             entry.GeneralMood = updateDto.GeneralMood;
+             entry.GeneralMoodDateTime = updateDto.GeneralMoodDateTime;
+             entry.Wins = updateDto.Wins;
+             entry.Losses = updateDto.Losses;
+             entry.Comments = updateDto.Comments;
+             
+             _context.EmotionEntries.Update(entry);
+             await _context.SaveChangesAsync();
+             return Ok(entry);
+         }
+         catch (InvalidOperationException)
+         {
+             return NotFound($"Emotion entry with ID {id} was not found.");
+         }
+         catch (Exception e)
+         {
+             Log.Error(e, "Error updating emotion entry with ID {EmotionEntryId}", id);
+             return StatusCode(500, "An error occurred while updating the emotion entry.");
+         }
     }
 }

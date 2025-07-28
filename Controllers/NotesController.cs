@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WellnessTracker.Data;
 using WellnessTracker.Models.DTOs.CreateDTOs;
@@ -8,6 +9,7 @@ using Serilog;
 
 namespace WellnessTracker.Controllers;
 
+[Authorize] 
 [ApiController]
 [Route("[controller]")]
 

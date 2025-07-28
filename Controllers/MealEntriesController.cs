@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using WellnessTracker.Models.Entities;
 
 namespace WellnessTracker.Controllers;
 
+[Authorize] 
 [ApiController]
 [Route("[controller]")]
 

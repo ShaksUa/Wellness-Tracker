@@ -10,10 +10,10 @@ public class MealEntryCreateDto
     public string? Lunch { get; set; }
     [Display(Name = "Date and Time of Lunch"),DataType(DataType.DateTime)]
     public DateTime LunchDateTime { get; set; }
-    public string Dinner { get; set; }
+    public string? Dinner { get; set; }
     [Display(Name = "Date and Time of Dinner"),DataType(DataType.DateTime)]
     public DateTime DinnerDateTime { get; set; }
-    public string Supper { get; set; }
+    public string? Supper { get; set; }
     [Display(Name = "Date and Time of Supper"),DataType(DataType.DateTime)]
     public DateTime SupperDateTime { get; set; }
     public string? OtherMealEntry { get; set; }

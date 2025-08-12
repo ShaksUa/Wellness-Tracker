@@ -8,5 +8,5 @@ public class User
         public DateTime RegistrationDateTime { get; set; }
         public string? Email { get; set; }
         public int? Age { get; set; }
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 }

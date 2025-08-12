@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using WellnessTracker.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +71,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 //### Fluent Validation Configuration
 builder.Services.AddFluentValidationAutoValidation();

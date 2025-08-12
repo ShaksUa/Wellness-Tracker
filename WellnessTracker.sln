@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellnessTracker", "WellnessTracker.csproj", "{07272C87-6B6D-42E3-A3DD-6B3FE7521B04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellnessTrackerxUnitTests", "..\WellnessTrackerxUnitTests\WellnessTrackerxUnitTests.csproj", "{A39498E2-ADF5-4A1F-AA8B-7AF0DF7A39BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07272C87-6B6D-42E3-A3DD-6B3FE7521B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07272C87-6B6D-42E3-A3DD-6B3FE7521B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07272C87-6B6D-42E3-A3DD-6B3FE7521B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07272C87-6B6D-42E3-A3DD-6B3FE7521B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39498E2-ADF5-4A1F-AA8B-7AF0DF7A39BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39498E2-ADF5-4A1F-AA8B-7AF0DF7A39BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39498E2-ADF5-4A1F-AA8B-7AF0DF7A39BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39498E2-ADF5-4A1F-AA8B-7AF0DF7A39BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

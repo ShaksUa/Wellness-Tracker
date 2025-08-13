@@ -23,14 +23,14 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Register([FromBody] UserRegisterDto registerDto)
+    public async Task<IActionResult> Register([FromBody] UserRegisterDto registerDto, CancellationToken cancellationToken)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _authService.RegisterAsync(registerDto);
+            await _authService.RegisterAsync(registerDto, cancellationToken);
             
             return CreatedAtAction(nameof(Register), new { email = registerDto.Email });
         }

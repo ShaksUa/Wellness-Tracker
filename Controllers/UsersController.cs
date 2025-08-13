@@ -19,7 +19,7 @@ public class UsersController: ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll(CancellationToken cancellationToken)
     {
         var users = await _context.Users
             .Select(e => new UserReadDto
@@ -31,7 +31,7 @@ public class UsersController: ControllerBase
                 Email = e.Email,
                 Age = e.Age,
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         
         if (!users.Any())
         {
@@ -41,12 +41,12 @@ public class UsersController: ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetById(int id)
+    public async Task<ActionResult<User>> GetById(int id,CancellationToken cancellationToken)
     {
         if (id < 1)
             return BadRequest("Invalid entry ID");
         
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users.FindAsync(id,cancellationToken);
         if (user == null)
         {
             return NotFound();

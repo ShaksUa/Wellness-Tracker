@@ -22,7 +22,7 @@ public class MealEntriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<MealEntry>> Create(MealEntryCreateDto mealEntry)
+    public async Task<ActionResult<MealEntry>> Create(MealEntryCreateDto mealEntry, CancellationToken cancellationToken)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -45,7 +45,7 @@ public class MealEntriesController : ControllerBase
         try
         {
             _context.Meals.Add(newMeal);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return CreatedAtAction(nameof(Create), new { id = newMeal.ID }, newMeal);
         }
         catch (Exception ex)
@@ -55,7 +55,7 @@ public class MealEntriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MealEntryReadDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<MealEntryReadDto>>> GetAll(CancellationToken cancellationToken)
     {
         var mealEntry = await _context.Meals
             .Select(e => new MealEntryReadDto
@@ -70,7 +70,7 @@ public class MealEntriesController : ControllerBase
                 Supper = e.Supper,
                 SupperDateTime = e.SupperDateTime,
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         if (!mealEntry.Any())
         {
@@ -80,12 +80,12 @@ public class MealEntriesController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<MealEntry>> GetById(int id)
+    public async Task<ActionResult<MealEntry>> GetById(int id, CancellationToken cancellationToken)
     {
         if (id < 1)
             return BadRequest("Invalid entry ID");
         
-        var mealEntry = await _context.Meals.FindAsync(id);
+        var mealEntry = await _context.Meals.FindAsync(id, cancellationToken);
         if (mealEntry == null)
         {
             return NotFound();

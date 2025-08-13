@@ -23,7 +23,7 @@ public class EmotionEntriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<EmotionEntry>> Create(EmotionEntryCreateDto entry)
+    public async Task<ActionResult<EmotionEntry>> Create(EmotionEntryCreateDto entry, CancellationToken cancellationToken)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -37,23 +37,23 @@ public class EmotionEntriesController : ControllerBase
             Comments = entry.Comments
         };
         _context.EmotionEntries.Add(newEntry);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
         return Ok(new {id = newEntry.ID});
     }
     
     [HttpGet]
-    public ActionResult<IEnumerable<EmotionEntryReadDto>> GetAll()
+    public async Task<ActionResult<IEnumerable<EmotionEntryReadDto>>> GetAll(CancellationToken cancellationToken)
     {
         try
         {
-            var entries = _context.EmotionEntries
+            var entries = await _context.EmotionEntries
                 .Select(e => new EmotionEntryReadDto
                 {
                     ID = e.ID,
                     GeneralMood = e.GeneralMood,
                     GeneralMoodDateTime = e.GeneralMoodDateTime,
                     Comments = e.Comments
-                }).ToList();
+                }).ToListAsync(cancellationToken);
         
         
             if (!entries.Any())
@@ -72,12 +72,12 @@ public class EmotionEntriesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<EmotionEntry>> GetById(int id)
+    public async Task<ActionResult<EmotionEntry>> GetById(int id, CancellationToken cancellationToken)
     {   
         if (id < 1)
             return BadRequest("Invalid entry ID");
         
-        var entry = await _context.EmotionEntries.FindAsync(id);
+        var entry = await _context.EmotionEntries.FindAsync(id, cancellationToken);
         if (entry == null)
         {
             return NotFound("The requested entry was not found.");
@@ -86,7 +86,7 @@ public class EmotionEntriesController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public async Task<ActionResult<EmotionEntry>> DeleteById(int id)
+    public async Task<ActionResult<EmotionEntry>> DeleteById(int id, CancellationToken cancellationToken)
     {
         if (id < 1)
         {
@@ -94,9 +94,9 @@ public class EmotionEntriesController : ControllerBase
         } 
         try
         {
-            var emotionEntry = await _context.EmotionEntries.FirstAsync(e => e.ID == id);
+            var emotionEntry = await _context.EmotionEntries.FirstAsync(e => e.ID == id, cancellationToken);
             _context.EmotionEntries.Remove(emotionEntry);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return NoContent();
         }
         catch (InvalidOperationException)
@@ -111,7 +111,7 @@ public class EmotionEntriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<EmotionEntry>> UpdateById(int id, EmotionEntryUpdateDto updateDto)
+    public async Task<ActionResult<EmotionEntry>> UpdateById(int id, EmotionEntryUpdateDto updateDto, CancellationToken cancellationToken)
     {
          if (id != updateDto.ID)
          {
@@ -119,7 +119,7 @@ public class EmotionEntriesController : ControllerBase
          }
          try
          {
-             var entry = await _context.EmotionEntries.FirstAsync(e => e.ID == id);
+             var entry = await _context.EmotionEntries.FirstAsync(e => e.ID == id, cancellationToken);
              entry.GeneralMood = updateDto.GeneralMood;
              entry.GeneralMoodDateTime = updateDto.GeneralMoodDateTime;
              entry.Wins = updateDto.Wins;
@@ -127,7 +127,7 @@ public class EmotionEntriesController : ControllerBase
              entry.Comments = updateDto.Comments;
              
              _context.EmotionEntries.Update(entry);
-             await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync(cancellationToken);
              return Ok(entry);
          }
          catch (InvalidOperationException)

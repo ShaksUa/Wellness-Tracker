@@ -22,7 +22,7 @@ public class NotesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Note>> Create(NoteCreateDto note)
+    public async Task<ActionResult<Note>> Create(NoteCreateDto note, CancellationToken cancellationToken)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -33,12 +33,12 @@ public class NotesController : ControllerBase
             Content = note.Content,
         };
         _context.Notes.Add(newNote);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
         return Ok(new {id = newNote.ID});
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<NoteReadDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<NoteReadDto>>> GetAll(CancellationToken cancellationToken)
     {
         try
         {
@@ -49,7 +49,7 @@ public class NotesController : ControllerBase
                     Title = e.Title,
                     Content = e.Content
                 })
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             if (!notes.Any())
             {
@@ -66,12 +66,12 @@ public class NotesController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<Note>> GetById(int id)
+    public async Task<ActionResult<Note>> GetById(int id, CancellationToken cancellationToken)
     {
         if (id < 1)
             return BadRequest("Invalid entry ID");
         
-        var note = await _context.Notes.FindAsync(id);
+        var note = await _context.Notes.FindAsync(id,cancellationToken);
         if (note == null)
         {
             return NotFound();

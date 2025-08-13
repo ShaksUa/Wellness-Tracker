@@ -25,7 +25,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
     
-    public async Task RegisterAsync(UserRegisterDto userRegisterDto)
+    public async Task RegisterAsync(UserRegisterDto userRegisterDto, CancellationToken cancellationToken)
     {
         if (userRegisterDto == null || string.IsNullOrEmpty(userRegisterDto.Email) || 
             string.IsNullOrEmpty(userRegisterDto.Password) || string.IsNullOrEmpty(userRegisterDto.FirstName) || 

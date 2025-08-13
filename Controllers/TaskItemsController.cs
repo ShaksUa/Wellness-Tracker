@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using WellnessTracker.Data;
 using WellnessTracker.Models.DTOs.CreateDTOs;
 using WellnessTracker.Models.DTOs.ReadDTOs;
@@ -21,7 +22,7 @@ public class TaskItemsController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<TaskItem>> Create (TaskItemCreateDto taskItem)
+    public async Task<ActionResult<TaskItem>> Create (TaskItemCreateDto taskItem,CancellationToken cancellationToken)
     {
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -35,12 +36,21 @@ public class TaskItemsController : ControllerBase
         };
         
         _context.TaskItems.Add(newTask);
-        await _context.SaveChangesAsync();
-        return Ok(new {id = newTask.ID});
+        try
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+            return Ok(new {id = newTask.ID});
+        }
+        catch (OperationCanceledException)
+        {
+            Log.Error("Operation was cancelled");
+            throw;
+        }
+
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TaskItemReadDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<TaskItemReadDto>>> GetAll(CancellationToken cancellationToken)
     {
        // var taskItems = _context.TaskItems.ToList();
 
@@ -53,7 +63,7 @@ public class TaskItemsController : ControllerBase
                TaskReminder = e.TaskReminder,
                TaskReminderDateTime = e.TaskReminderDateTime
            })
-           .ToListAsync();
+           .ToListAsync(cancellationToken);
         
         if (!taskItems.Any())
         {
@@ -63,17 +73,27 @@ public class TaskItemsController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<TaskItem>> GetById(int id)
+    public async Task<ActionResult<TaskItemReadDto>> GetById(int id, CancellationToken cancellationToken)
     {
-        if (id < 1)
-            return BadRequest("Invalid entry ID");
-        
-        var taskItem = await _context.TaskItems.FindAsync(id);
-        if (taskItem == null)
+    if (id < 1)
+        return BadRequest("Invalid entry ID");
+    
+    var taskItem = await _context.TaskItems
+        .Where(t => t.ID == id)
+        .Select(e => new TaskItemReadDto
         {
-            return NotFound();
-        }
-        return Ok(taskItem);
+            ID = e.ID,
+            Task = e.Task,
+            TaskDateTime = e.TaskDateTime,
+            TaskReminder = e.TaskReminder,
+            TaskReminderDateTime = e.TaskReminderDateTime
+        })
+        .FirstOrDefaultAsync(cancellationToken);
+    
+    if (taskItem == null)
+    {
+        return NotFound();
     }
+    return Ok(taskItem);
 }
-
+}

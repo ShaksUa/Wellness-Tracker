@@ -6,7 +6,7 @@ namespace WellnessTracker.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task RegisterAsync(UserRegisterDto userRegisterDto);
+    Task RegisterAsync(UserRegisterDto userRegisterDto, CancellationToken cancellationToken);
     Task<string> LoginAsync(UserLoginDto userLoginDto);
     string GenerateJwtToken(User user);
 }
